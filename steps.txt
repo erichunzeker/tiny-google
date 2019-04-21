@@ -1,0 +1,6 @@
+ssh emh128@ric-edge-01.sci.pitt.edu
+export JAVA_HOME=/usr/java/jdk1.8.0_101
+export PATH=${JAVA_HOME}/bin:${PATH}
+export HADOOP_CLASSPATH=${JAVA_HOME}/lib/tools.jar
+unset -f which
+hadoop fs -ls /user/chatree/project/docs/
