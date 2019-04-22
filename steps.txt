@@ -4,3 +4,9 @@ export PATH=${JAVA_HOME}/bin:${PATH}
 export HADOOP_CLASSPATH=${JAVA_HOME}/lib/tools.jar
 unset -f which
 hadoop fs -ls /user/chatree/project/docs/
+
+hadoop com.sun.tools.javac.Main InvertedIndex.java InvertedIndexMapper.java InvertedIndexReducer.java
+jar cf ii.jar InvertedIndex*.class
+
+hadoop fs -rmdir /user/emh128/output/ii/test/
+hadoop jar ii.jar InvertedIndex /user/chatree/project/docs/ /user/emh128/output/ii/test/
