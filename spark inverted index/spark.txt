@@ -1,0 +1,1 @@
+write inverted index in spark
