@@ -1,4 +1,12 @@
 import java.io.IOException;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.URI;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.StringTokenizer;
+
 
 import org.apache.hadoop.io.IntWritable;
 import org.apache.hadoop.io.LongWritable;
@@ -11,13 +19,23 @@ public class InvertedIndexMapper extends Mapper<LongWritable,Text,Text,Text> {
     public void map(LongWritable key, Text value, Context context)
       throws IOException,InterruptedException {
         /*Get the name of the file using context.getInputSplit()method*/
-        String fileName = ((FileSplit) context.getInputSplit()).getPath().getName();
-        String line=value.toString();
-        //Split the line in words
-        String words[]=line.split(" ");
-        for(String s:words) {
-          //for each word emit word as key and file name as value
-          context.write(new Text(s), new Text(fileName));
-        }
+        Set<String> stopwords = new HashSet<String>();
+	       Text word = new Text();
+        String fileName = ((FileSplit) context.getInputSplit()).getPath()
+				.getName();
+
+    		String line = value
+    				.toString()
+    				.replaceAll("[^\\w\\s]|('s|ly|ed|ing|ness|.|,|\\?|'|:|;) ", " ")
+    				.toLowerCase();
+
+    		StringTokenizer tokenizer = new StringTokenizer(line);
+    		while (tokenizer.hasMoreTokens()) {
+    			String wordText = tokenizer.nextToken();
+    			if (stopwords.contains(wordText))
+    				continue;
+    			word.set(wordText);
+    			context.write(word, new Text(fileName));
+    		}
     }
 }
