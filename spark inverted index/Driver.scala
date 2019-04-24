@@ -13,14 +13,6 @@ object Driver {
     val stopWords = stopWordsInput.flatMap(x => x.split("\\r?\\n")).map(_.trim)
     val broadcastStopWords = sc.broadcast(stopWords.collect.toSet)
 
-    // Delete output file if exists
-    val hadoopConf = new org.apache.hadoop.conf.Configuration()
-    val hdfs = org.apache.hadoop.fs.FileSystem.get(new java.net.URI("hdfs://quickstart.cloudera:8020"), hadoopConf)
-    try {
-      hdfs.delete(new org.apache.hadoop.fs.Path(args(2)), true)
-    } catch {
-      case _: Throwable => {}
-    }
 
     // Read input file and filter all stopwords
     sc.wholeTextFiles(args(1)).flatMap {
@@ -53,4 +45,4 @@ object Driver {
     }.saveAsTextFile(args(2))
   }
 
-} 
+}
