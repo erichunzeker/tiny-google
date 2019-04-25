@@ -1,3 +1,6 @@
+import mmap
+import re
+
 ii = {}
 
 f = open("part-r-00000", "r")
@@ -26,13 +29,38 @@ while f:
 f.close()
 
 while True:
-    print('enter a term or \'q\' to quit')
+    print('\nenter a term or \'q\' to quit\n')
     term = input()
+
     if term == 'q':
         break
 
-    if term in ii:
-        print(ii[term])
+    terms = term.split(" ")
+
+    for term in terms:
+        if term in ii:
+            # print(ii[term])
+
+
+            # f = open('docs/' + ii[term][0]['file'], 'r+b')
+            for index in range(3):
+                if len(ii[term]) <= index - 1:
+                    break
+                f = open('docs/' + ii[term][index - 1]['file'], "r")
+                print('\n\n' + ii[term][index - 1]['file'] + '\n\n')
+                searchlines = f.readlines()
+                term = term.lower()
+                # print(searchlines)
+                f.close()
+                for i, line in enumerate(searchlines):
+                    if term in line.lower():
+                        for l in searchlines[i:i+3]:
+                            print('\n' + l + '\n')
+                            break
+                        break
+
+            #f.close()
+
 
 
 print('goodbye')
