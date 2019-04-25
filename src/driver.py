@@ -18,17 +18,21 @@ while f:
         val = val.split('=')
         if '\n' in val[1]:
             val[1] = val[1].split('\n')[0]
-        values.append({val[0]: val[1]})
+        values.append({"file" : val[0], "freq": val[1]})
+
+    values = sorted(values, key=lambda k: k['freq'], reverse=True)
 
     ii[key[0]] = values
 f.close()
 
 while True:
-    print('enter a term')
+    print('enter a term or \'q\' to quit')
     term = input()
+    if term == 'q':
+        break
+
     if term in ii:
         print(ii[term])
 
-    if term == 'q':
-        break
+
 print('goodbye')
