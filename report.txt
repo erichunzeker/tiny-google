@@ -1,5 +1,0 @@
-The final report discussing
-- Your design
-- Your implementations
-- The screen capture for a couple of multi-keywords searches along with the result outputs.
-- Your comparison analysis between MapReduce and Spark implementation

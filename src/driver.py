@@ -3,7 +3,7 @@ import re
 
 ii = {}
 
-f = open("part-r-00000", "r")
+f = open("data/mroutput/part-r-00000", "r")
 
 while f:
     line = f.readline()

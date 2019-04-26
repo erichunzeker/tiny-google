@@ -7,7 +7,6 @@ object Driver {
   def main(args: Array[String]) {
     val conf = new SparkConf().setAppName("inverted index")
 
-    // Read input file and filter all stopwords
     sc.wholeTextFiles("/user/chatree/project/docs/").flatMap {
       case (path, text) =>
         text.replaceAll("[^\\w\\s]|('s|ly|ed|ing|ness) ", " ")

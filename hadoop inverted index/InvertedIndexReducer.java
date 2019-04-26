@@ -9,7 +9,6 @@ public class InvertedIndexReducer extends Reducer<Text, Text, Text, Text> {
   @Override
   public void reduce(Text key, Iterable<Text> values, Context context)
   throws IOException, InterruptedException {
-    /*Declare the Hash Map to store File name as key to compute and store number of times the filename is occurred for as value*/
     StringBuilder stb = new StringBuilder();
 		HashMap<String, Integer> fileFreq = new HashMap<String, Integer>();
 
